@@ -10,6 +10,7 @@ export interface ActionSheetOptions {
   message?: string;
   anchor?: number;
   tintColor?: string;
+  hideCancelButton?: boolean; // if you don't want to show cancel button on Android
 }
 
 export type ActionSheetCallback = (buttonIndex: number) => void;

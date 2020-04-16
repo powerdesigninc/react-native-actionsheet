@@ -1,8 +1,13 @@
 import React from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, Alert } from 'react-native';
-import { ActionSheet } from '@powerdesigninc/react-native-actionsheet';
+import {StyleSheet, Text, View, TouchableOpacity, Alert} from 'react-native';
+import {ActionSheet} from '@powerdesigninc/react-native-actionsheet';
 
+const options = ['Cancel', 'From Gallery', 'From Camera'];
 const App = () => {
+  const callback = index => {
+    Alert.alert(`index is ${index}`);
+  };
+
   return (
     <View style={styles.container}>
       <TouchableOpacity
@@ -12,28 +17,58 @@ const App = () => {
             {
               title: 'Title',
               message: 'message',
-              options: ['Cancel', 'From Gallery', 'From Camera'],
+              options,
               destructiveButtonIndex: 1,
               cancelButtonIndex: 0,
             },
-            index => {
-              switch (index) {
-                case 1: 
-                  Alert.alert('From Camera clicked');
-                  break;
-                case 2: 
-                  Alert.alert('From Camera clicked');
-                  break;
-                case 0: 
-                  Alert.alert('onCancel');
-                  break;
-                default: 
-                  Alert.alert('Default');                
-              }
-            },
+            callback,
           );
         }}>
         <Text>Show ActionSheet</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity
+        style={styles.button}
+        onPress={() => {
+          ActionSheet.showActionSheetWithOptions(
+            {
+              options,
+              destructiveButtonIndex: 1,
+              cancelButtonIndex: 0,
+            },
+            callback,
+          );
+        }}>
+        <Text>no title and message</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity
+        style={styles.button}
+        onPress={() => {
+          ActionSheet.showActionSheetWithOptions(
+            {
+              options: ['Cancel', 'From Gallery', 'From Camera'],
+              destructiveButtonIndex: 0,
+              cancelButtonIndex: 0,
+            },
+            callback,
+          );
+        }}>
+        <Text>cancel destructive</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity
+        style={styles.button}
+        onPress={() => {
+          ActionSheet.showActionSheetWithOptions(
+            {
+              options: ['Cancel', 'From Gallery', 'From Camera'],
+              hideCancelButton: true,
+            },
+            callback,
+          );
+        }}>
+        <Text>hideCancelButton = true</Text>
       </TouchableOpacity>
     </View>
   );
@@ -41,14 +76,17 @@ const App = () => {
 
 const styles = StyleSheet.create({
   container: {
-    flex:1,
+    flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
   },
   button: {
+    marginBottom: 20,
     padding: 20,
-    backgroundColor: "green"
-  }
+    width: '80%',
+    textAlign: 'center',
+    backgroundColor: '#5fc4b7',
+  },
 });
 
 export default App;

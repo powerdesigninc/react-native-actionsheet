@@ -9,9 +9,12 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.facebook.react.bridge.Callback
 import com.facebook.react.bridge.ReadableMap
+import com.google.android.material.bottomsheet.BottomSheetDialog
 
 
 class ActionSheetDialog internal constructor(context: Context, optionMap: ReadableMap, private val onClickCallback: Callback) : BottomSheetDialog(context) {
+    private val cancelOption: ActionSheetOption
+
     init {
         val sheetView = this.layoutInflater.inflate(R.layout.sheet, null)
 
@@ -31,17 +34,28 @@ class ActionSheetDialog internal constructor(context: Context, optionMap: Readab
         // init cancel button
         val cancelButton = sheetView.findViewById<TextView>(R.id.button_cancel)
         val cancelIndex = optionMap.getInt("cancelButtonIndex")
-        val showCancelButton = cancelIndex == destructiveIndex
-        val cancelOption = if (showCancelButton) {
-            // no cancel button
+        val hideCancelButton = if (optionMap.hasKey("hideCancelButton")){
+            optionMap.getBoolean("hideCancelButton")
+        } else {
+            false
+        }
+
+        cancelOption = optionList[cancelIndex] as ActionSheetOption
+
+        if (hideCancelButton) {
+            // hide cancel button and no cancel in the list
             cancelButton.visibility = View.GONE
-            optionList[cancelIndex] as ActionSheetOption
+            optionList.removeAt(cancelIndex)
+        } else if (cancelIndex == destructiveIndex){
+            // when cancelIndex == destructiveIndex, show cancel button in the list
+            cancelButton.visibility = View.GONE
         } else {
             // show cancel button
-            optionList.removeAt(cancelIndex) as ActionSheetOption
+            optionList.removeAt(cancelIndex)
         }
 
         cancelButton.text = cancelOption.text
+        cancelButton.setOnClickListener{ onCancel() }
 
         // init title
         if (optionMap.hasKey("title")) {
@@ -59,7 +73,7 @@ class ActionSheetDialog internal constructor(context: Context, optionMap: Readab
         list.addItemDecoration(divider)
 
 
-        setOnCancelListener { onClickCallback.invoke(cancelOption.index) }
+        setOnCancelListener { onCancel() }
         setContentView(sheetView)
 
         // remove white background
@@ -68,6 +82,11 @@ class ActionSheetDialog internal constructor(context: Context, optionMap: Readab
 
     private fun onSelected(option: ActionSheetOption) {
         onClickCallback(option.index)
-        hide()
+        dismiss()
+    }
+
+    private fun onCancel() {
+        onClickCallback(cancelOption.index)
+        dismiss()
     }
 }

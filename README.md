@@ -17,10 +17,14 @@ Use the same way as [`ActionSheetIOS`](https://facebook.github.io/react-native/d
   </tr>
   <tr>
     <td>
-      <img src="./docs/android.png">
+      <img src="./docs/android-1.png"> 
+      <br>
+      <img src="./docs/android-2.png">
     </td>
     <td>
-      <img src="./docs/ios.png">
+      <img src="./docs/ios-1.png">
+      <br>
+      <img src="./docs/ios-2.png">
     </td>
   </tr>
 <table>
@@ -49,33 +53,43 @@ react-native link @powerdesigninc/react-native-actionsheet
 ``` tsx
 import ActionSheet from "@powerdesigninc/react-native-actionsheet"
 
-<TouchableOpacity onPress={() => {
-   ActionSheet.showActionSheetWithOptions(
-       {
-          title : "Title",
-          message : "message",
-          options : ["Cancel", "From Gallery", "From Camera"],
-          cancelButtonIndex : 0, // default is 0
-       }, (index) => {
-        switch (index) {
-         case 1: {
-           alert("From Camera clicked")
-         }
-         case 2: {
-           alert("From Camera clicked")
-         }
-         case 0: {
-           alert("onCancel")
-         }
-         default:{
-           alert("Default")
-         }
-        }
-       }
-   )
-}}>
-  <Text>Show ActionSheet</Text>
-</TouchableOpacity>
+const App = () => {
+  return (
+    <View style={styles.container}>
+      <TouchableOpacity
+        style={styles.button}
+        onPress={() => {
+          ActionSheet.showActionSheetWithOptions(
+            {
+              title: 'Title',
+              message: 'message',
+              options: ['Cancel', 'From Gallery', 'From Camera'],
+              destructiveButtonIndex: 1,
+              cancelButtonIndex: 0,
+            },
+            index => {
+              switch (index) {
+                case 1: 
+                  Alert.alert('From Camera clicked');
+                  break;
+                case 2: 
+                  Alert.alert('From Camera clicked');
+                  break;
+                case 0: 
+                  Alert.alert('onCancel');
+                  break;
+                default: 
+                  Alert.alert('Default');
+                  break;
+              }
+            },
+          );
+        }}>
+        <Text>Show ActionSheet</Text>
+      </TouchableOpacity>
+    </View>
+  );
+};
 ```
 
 ## Options
@@ -89,7 +103,17 @@ interface ActionSheetOptions {
   message?: string;
   anchor?: number;
   tintColor?: string;
+  hideCancelButton?: boolean; // if you don't want to show cancel on Android, but no effect on iOS
 }
+```
+
+## Run Example Project
+``` bash
+cd example
+yarn install
+
+yarn ios
+yarn android
 ```
 
 ## License
