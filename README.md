@@ -1,4 +1,6 @@
 # React Native ActionSheet
+[![npm version](https://badge.fury.io/js/%40powerdesigninc%2Freact-native-actionsheet.svg)](https://badge.fury.io/js/%40powerdesigninc%2Freact-native-actionsheet)
+
 Inspired by [talut/rn-actionsheet-module](https://github.com/talut/rn-actionsheet-module).
 
 This package will help you to using ActionSheet cross platform iOS(ActionSheetIOS) and Android(BottomSheetDialog). 
