@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <color name="option">#3785F6</color>
+  <color name="message">#989997</color>
+  <color name="destructive">#EB847A</color>
+</resources>

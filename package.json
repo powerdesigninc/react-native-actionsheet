@@ -1,0 +1,33 @@
+{
+  "name": "@powerdesigninc/react-native-actionsheet",
+  "version": "0.0.1",
+  "description": "React Native ActionSheet for Android (BottomSheetDialog) & IOS (ActionSheetIOS)",
+  "main": "index.ts",
+  "keywords": [
+    "react-native",
+    "actionsheet"
+  ],
+  "files": [
+    "index.ts"
+  ],
+  "author": {
+    "username": "powerdesigninc",
+    "name": "Power Design Inc"
+  },
+  "license": "MIT",
+  "peerDependencies": {
+    "react-native": "^0.62.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/powerdesigninc/react-native-actionsheet.git"
+  },
+  "bugs": {
+    "url": "https://github.com/powerdesigninc/react-native-actionsheet/issues"
+  },
+  "homepage": "https://github.com/powerdesigninc/react-native-actionsheet",
+  "devDependencies": {
+    "@types/react-native": "^0.62.2",
+    "typescript": "^3.8.3"
+  }
+}
