@@ -1,6 +1,6 @@
 {
   "name": "@powerdesigninc/react-native-actionsheet",
-  "version": "0.1.0",
+  "version": "0.2.1",
   "description": "React Native ActionSheet for Android (BottomSheetDialog) & IOS (ActionSheetIOS)",
   "main": "index.ts",
   "keywords": [
@@ -11,11 +11,14 @@
     "access": "public"
   },
   "files": [
+    "android/src",
+    "android/build.gradle",
     "index.ts"
   ],
   "author": {
-    "username": "powerdesigninc",
-    "name": "Power Design Inc"
+    "name": "Power Design Inc",
+    "email": "developer@powerdesigninc.us",
+    "url": "https://github.com/powerdesigninc"
   },
   "license": "MIT",
   "peerDependencies": {

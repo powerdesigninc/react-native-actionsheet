@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 
 const val ActionSheetTypeTitle = 0;
@@ -45,7 +46,7 @@ class ActionSheetAdapter(private val options: List<ActionSheetItem>, private val
         if (item is ActionSheetTitle) {
             holder.itemView.findViewById<TextView>(R.id.title).text = item.title
 
-            if (!item.message.isNullOrEmpty()){
+            if (!item.message.isNullOrEmpty()) {
                 val messageView = holder.itemView.findViewById<TextView>(R.id.message)
                 messageView.text = item.message
                 messageView.visibility = View.VISIBLE
@@ -60,10 +61,10 @@ class ActionSheetAdapter(private val options: List<ActionSheetItem>, private val
             val textView = holder.itemView.findViewById<TextView>(R.id.text)
             textView.text = item.text
 
-            if (item.destructive){
-                textView.setTextColor(textView.resources.getColor(R.color.destructive))
-            }else{
-                textView.setTextColor(textView.resources.getColor(R.color.option))
+            if (item.destructive) {
+                textView.setTextColor(ContextCompat.getColor(textView.context, R.color.destructive))
+            } else {
+                textView.setTextColor(ContextCompat.getColor(textView.context, R.color.option))
             }
         }
     }
