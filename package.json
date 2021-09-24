@@ -1,6 +1,6 @@
 {
   "name": "@powerdesigninc/react-native-actionsheet",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "React Native ActionSheet for Android (BottomSheetDialog) & IOS (ActionSheetIOS)",
   "main": "index.ts",
   "keywords": [
@@ -21,9 +21,6 @@
     "url": "https://github.com/powerdesigninc"
   },
   "license": "MIT",
-  "peerDependencies": {
-    "react-native": "^0.62.2"
-  },
   "repository": {
     "type": "git",
     "url": "git://github.com/powerdesigninc/react-native-actionsheet.git"

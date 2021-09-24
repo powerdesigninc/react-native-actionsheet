@@ -2,6 +2,8 @@ package us.powerdesigninc.actionsheet
 
 import android.content.Context
 import android.graphics.Color
+import android.graphics.Rect
+import android.os.Bundle
 import android.view.View
 import android.widget.TextView
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -10,6 +12,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.facebook.react.bridge.Callback
 import com.facebook.react.bridge.ReadableMap
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import java.lang.Integer.max
+import kotlin.math.roundToInt
 
 
 class ActionSheetDialog internal constructor(context: Context, optionMap: ReadableMap, private val onClickCallback: Callback) : BottomSheetDialog(context) {
@@ -42,16 +46,20 @@ class ActionSheetDialog internal constructor(context: Context, optionMap: Readab
 
         cancelOption = optionList[cancelIndex] as ActionSheetOption
 
-        if (hideCancelButton) {
-            // hide cancel button and no cancel in the list
-            cancelButton.visibility = View.GONE
-            optionList.removeAt(cancelIndex)
-        } else if (cancelIndex == destructiveIndex){
-            // when cancelIndex == destructiveIndex, show cancel button in the list
-            cancelButton.visibility = View.GONE
-        } else {
-            // show cancel button
-            optionList.removeAt(cancelIndex)
+        when {
+            hideCancelButton -> {
+                // hide cancel button and no cancel in the list
+                cancelButton.visibility = View.GONE
+                optionList.removeAt(cancelIndex)
+            }
+            cancelIndex == destructiveIndex -> {
+                // when cancelIndex == destructiveIndex, show cancel button in the list
+                cancelButton.visibility = View.GONE
+            }
+            else -> {
+                // show cancel button
+                optionList.removeAt(cancelIndex)
+            }
         }
 
         cancelButton.text = cancelOption.text
@@ -63,7 +71,6 @@ class ActionSheetDialog internal constructor(context: Context, optionMap: Readab
         }
 
         // init list
-
         val list = sheetView.findViewById<RecyclerView>(R.id.list)
         list.setHasFixedSize(true)
         list.layoutManager = LinearLayoutManager(context)
@@ -78,6 +85,22 @@ class ActionSheetDialog internal constructor(context: Context, optionMap: Readab
 
         // remove white background
         (sheetView.parent as View).setBackgroundColor(Color.TRANSPARENT)
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        window?.let {
+            val windowRect = Rect()
+
+            it.decorView.getWindowVisibleDisplayFrame(windowRect)
+
+            // if it is horizontal mode, then set peek is 70% of the height and 50% of the width
+            if (windowRect.width() > windowRect.height()) {
+                behavior.peekHeight = (windowRect.height() * 0.7).roundToInt()
+                behavior.maxWidth = (windowRect.width() * 0.5).roundToInt()
+            }
+        }
     }
 
     private fun onSelected(option: ActionSheetOption) {
