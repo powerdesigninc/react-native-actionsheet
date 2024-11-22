@@ -1,10 +1,10 @@
 import React from 'react';
-import {StyleSheet, Text, View, TouchableOpacity, Alert} from 'react-native';
-import {ActionSheet} from '@powerdesigninc/react-native-actionsheet';
+import { StyleSheet, Text, View, TouchableOpacity, Alert } from 'react-native';
+import { ActionSheet } from '@powerdesigninc/react-native-actionsheet';
 
 const options = ['Cancel', 'From Gallery', 'From Camera'];
 const App = () => {
-  const callback = index => {
+  const callback = (index: number) => {
     Alert.alert(`index is ${index}`);
   };
 
