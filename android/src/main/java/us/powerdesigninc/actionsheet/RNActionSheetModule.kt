@@ -7,8 +7,8 @@ class RNActionSheetModule internal constructor(reactContext: ReactApplicationCon
 
   @ReactMethod
   fun show(options: ReadableMap?, onClickCallback: Callback?) {
-    currentActivity!!.runOnUiThread {
-      ActionSheetDialog(currentActivity!!, options!!, onClickCallback!!).apply {
+    context.currentActivity!!.runOnUiThread {
+      ActionSheetDialog(context.currentActivity!!, options!!, onClickCallback!!).apply {
         show()
       }
     }
